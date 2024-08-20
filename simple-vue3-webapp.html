@@ -49,8 +49,8 @@
             color: #ffdd57;
         }
         .hero-image {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             margin: 20px auto;
             background-size: cover;
             background-position: center;
@@ -94,9 +94,9 @@
                 const heroName = ref('Super Coder')
                 const heroPower = ref('Programación a la Velocidad de la Luz')
                 const heroWeakness = ref('Cafeína Baja')
-                const heroImage = ref('https://api.dicebear.com/6.x/bottts/svg?seed=SuperCoder')
+                const heroImage = ref('https://rickandmortyapi.com/api/character/avatar/1.jpeg')
 
-                const generateHero = () => {
+                const generateHero = async () => {
                     const names = ['Shadow Hawk', 'Thunderstrike', 'Blaze Fury', 'Iron Sentinel', 'Aqua Phantom']
                     const powers = ['Super fuerza', 'Invisibilidad', 'Telequinesis', 'Control del tiempo', 'Volar']
                     const weaknesses = ['Criptonita', 'Vulnerabilidad al agua', 'Dependencia del sol', 'Fobia a la oscuridad', 'Pérdida de poderes bajo la luna llena']
@@ -104,7 +104,13 @@
                     heroName.value = names[Math.floor(Math.random() * names.length)]
                     heroPower.value = powers[Math.floor(Math.random() * powers.length)]
                     heroWeakness.value = weaknesses[Math.floor(Math.random() * weaknesses.length)]
-                    heroImage.value = `https://api.dicebear.com/6.x/bottts/svg?seed=${Math.random()}`
+                    
+                    // Obtener un personaje aleatorio de Rick and Morty
+            const randomId = Math.floor(Math.random() * 826) + 1; // 826 es el número total de personajes
+            const response = await fetch(`https://rickandmortyapi.com/api/character/${randomId}`);
+            const character = await response.json();
+
+            heroImage.value = character.image;
                 }
 
                 return {
